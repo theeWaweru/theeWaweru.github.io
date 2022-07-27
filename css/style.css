@@ -1,15 +1,38 @@
-figure {
-	max-width:1024px;
-	max-width:64rem;
+html, body {
+	margin:0;
+	padding:0;
 	width:100%;
 	height:100%;
-	max-height:494px;
-	max-height:30.875rem;
-	margin:20px auto;
-	margin:1.25rem auto;
-	padding:20px;
-	padding:1.051%;
-	background-color:#666;
+}
+body {
+	color:rgb(255, 255, 255);
+	background-color:rgb(0, 0, 0);
+	font-family:"Lucida Grande","Lucida Sans Unicode","DejaVu Sans",Lucida,Arial,Helvetica,sans-serif;
+}
+h1 {
+	color:#666;
+	font-size:20px;
+	font-size:1.25rem;
+	text-align:center;
+	margin:0;
+	padding:0.5rem 0;
+}
+a {
+	color:#0095dd;
+	text-decoration:none;
+}
+a:hover, a:focus {
+	color:#2255aa;
+	text-decoration:underline;
+}
+figure {
+	width:100%;
+	height:100%;
+	position: relative;
+	margin:0;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 figcaption {
 	display:block;
@@ -20,6 +43,9 @@ figcaption {
 video {
 	width:100%;
 }
+#video, #playpause {
+	height: 100vh;
+}
 
 /* controls */
 .controls, .controls > * {
@@ -27,32 +53,46 @@ video {
 	margin:0;
 }
 .controls {
-	overflow:hidden;
-	background:transparent;
+	/* From glassmorphism editor https://css.glass */
+	background: rgba(255, 255, 255, 0);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+
 	width:100%;
-	height:8.0971659919028340080971659919028%; /* of figure's height */
-	position:relative;
-	/*background-color: white; background color of the controls div */
+	height: clamp(40px, 6vh, 60px); /* of controls height */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	column-gap: 16px;
 }
 .controls[data-state=hidden] {
 	display:none;
 }
 .controls[data-state=visible] {
-	display:block;
+	display:flex;
 }
 .controls > * {
 	float:left;
-	width:3.90625%;
-	height:100%;
-	margin-left:0.1953125%;
+	width:30px;
+	height:30px;
 	display:block;
 }
 .controls > *:first-child {
 	margin-left:0;
 }
 .controls .progress {
-	cursor:pointer;
-	width:75.390625%;
+	cursor: pointer;
+	width: 50vw;
+    border-radius: 20px;
+    padding: 1.8px 0px;
+    height: 8px;
+    background-color: white;
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .controls button {
 	text-align:center;
@@ -73,79 +113,92 @@ video {
 	background-color: #00dd7a;
 }
 .controls button[data-state="play"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 40C8.955 40 0 31.045 0 20C0 8.955 8.955 0 20 0C31.045 0 40 8.955 40 20C40 31.045 31.045 40 20 40ZM15 10.015V29.985L30 20L15 10.015Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 40C8.955 40 0 31.045 0 20C0 8.955 8.955 0 20 0C31.045 0 40 8.955 40 20C40 31.045 31.045 40 20 40ZM15 10.015V29.985L30 20L15 10.015Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="pause"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0ZM11.0278 9.646H17.085V30.354H11.0278V9.646ZM22.915 9.646H28.9722V30.354H22.915V9.646Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0ZM11.0278 9.646H17.085V30.354H11.0278V9.646ZM22.915 9.646H28.9722V30.354H22.915V9.646Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="stop"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0ZM10 10H30V30H10V10Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0ZM10 10H30V30H10V10Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="mute"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.9009 23.1649C38.9678 23.2317 39.0012 23.3104 39.0012 23.4011C39.0012 23.4918 38.9678 23.5706 38.9009 23.6374L36.6812 25.8572C36.6143 25.924 36.5379 25.9574 36.452 25.9574C36.3756 25.9574 36.2945 25.924 36.2086 25.8572L33.0437 22.6923L29.8788 25.8572C29.8119 25.924 29.7355 25.9574 29.6495 25.9574C29.5732 25.9574 29.492 25.924 29.4061 25.8572L27.1864 23.6374C27.129 23.5801 27.1004 23.499 27.1004 23.3939C27.1004 23.2985 27.129 23.2221 27.1864 23.1648L30.3513 19.9999L27.2007 16.835C27.1338 16.7777 27.1004 16.7013 27.1004 16.6058C27.1004 16.5008 27.1338 16.4197 27.2007 16.3624L29.406 14.1426C29.4729 14.0758 29.554 14.0423 29.6495 14.0423C29.745 14.0423 29.8214 14.0758 29.8787 14.1426L33.0436 17.3075L36.2085 14.1426C36.2753 14.0758 36.3541 14.0423 36.4448 14.0423C36.5355 14.0423 36.6142 14.0758 36.681 14.1426L38.9008 16.3624C38.9676 16.4292 39.0011 16.508 39.0011 16.5986C39.0011 16.6893 38.9676 16.768 38.9008 16.8349L35.736 19.9999L38.9009 23.1649V23.1649ZM0.75293 11.6289H10.2375L24.5055 0V40L10.2375 28.3711H0.75293V11.6289V11.6289Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM29.1006 21.6152L29.0742 21.582L27.4912 20L29.0742 18.418C29.0977 18.3945 29.1133 18.3672 29.1201 18.3359L29.124 18.2988C29.124 18.2539 29.1074 18.2148 29.0742 18.1816L27.9639 17.0723C27.9307 17.0371 27.8916 17.0215 27.8457 17.0215C27.8008 17.0215 27.7607 17.0371 27.7275 17.0723L26.1455 18.6543L24.5625 17.0723C24.5498 17.0566 24.5352 17.0449 24.5186 17.0371C24.498 17.0254 24.4746 17.0215 24.4482 17.0215C24.4004 17.0215 24.3604 17.0371 24.3262 17.0723L23.2236 18.1816C23.1904 18.209 23.1738 18.25 23.1738 18.3027C23.1738 18.3516 23.1904 18.3887 23.2236 18.418L24.7988 20L23.2168 21.582C23.1885 21.6113 23.1738 21.6484 23.1738 21.6973C23.1738 21.75 23.1885 21.791 23.2168 21.8184L24.3262 22.9277C24.3691 22.9629 24.4102 22.9785 24.4482 22.9785C24.4912 22.9785 24.5293 22.9629 24.5625 22.9277L26.1455 21.3457L27.7275 22.9277C27.7451 22.9434 27.7627 22.9531 27.7803 22.9609C27.8047 22.9727 27.8271 22.9785 27.8496 22.9785C27.8926 22.9785 27.9307 22.9629 27.9639 22.9277L29.0742 21.8184C29.0908 21.8027 29.1025 21.7852 29.1104 21.7656C29.1191 21.7461 29.124 21.7246 29.124 21.7012C29.124 21.6699 29.1162 21.6406 29.1006 21.6152ZM14.7422 15.8145H10V24.1855H14.7422L21.876 30V10L14.7422 15.8145Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="unmute"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.48455 11.6289H0V28.3711H9.48459L23.7526 40V0L9.48455 11.6289Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM11 15.8145H15.7422L22.876 10V30L15.7422 24.1855H11V15.8145Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="volup"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.40332 11.6288H9.88784L24.1559 0V40L9.88784 28.3711H0.40332V11.6288ZM29.5167 9.73193C32.3208 12.536 33.7504 15.945 33.8054 19.9587C33.8054 23.8075 32.3758 27.1064 29.5167 29.8556L26.6301 26.8865C28.6095 24.9072 29.5992 22.5704 29.5992 19.8763C29.5992 17.1271 28.6095 14.7354 26.6301 12.701L29.5167 9.73193ZM34.4651 4.86596C38.5889 8.98967 40.6507 13.9656 40.6507 19.7938C40.6507 25.622 38.5889 30.6253 34.4651 34.8041L31.4136 31.7525C34.7126 28.5085 36.3621 24.5361 36.3621 19.835C36.3621 15.1341 34.7126 11.134 31.4136 7.83507L34.4651 4.86596ZM39.0013 0.329875C41.5305 2.8591 43.5098 5.80066 44.9394 9.15461C46.3689 12.5086 47.0837 16.0549 47.0837 19.7938C47.0837 23.5326 46.3689 27.0928 44.9394 30.4742C43.5098 33.8557 41.5305 36.8109 39.0013 39.3402L36.0322 36.3711C40.5958 31.8076 42.8776 26.2955 42.8776 19.835C42.8776 13.3746 40.5958 7.86253 36.0322 3.29898L39.0013 0.329875Z" fill="blue" /></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM12.7422 15.8145H8V24.1855H12.7422L19.876 30V10L12.7422 15.8145ZM24.0273 16.9336C23.6748 16.1836 23.1846 15.4941 22.5566 14.8652L21.1133 16.3496C22.1035 17.3672 22.5977 18.5645 22.5977 19.9375C22.5977 21.2852 22.1035 22.4531 21.1133 23.4434L22.5566 24.9277C23.9863 23.5527 24.7012 21.9043 24.7012 19.9785C24.6865 18.8711 24.4619 17.8555 24.0273 16.9336ZM28.124 19.8965C28.124 16.9824 27.0928 14.4941 25.0312 12.4336L23.5049 13.918C25.1543 15.5664 25.9795 17.5664 25.9795 19.918C25.9795 22.2676 25.1543 24.2539 23.5049 25.877L25.0312 27.4023C27.0928 25.3125 28.124 22.8105 28.124 19.8965ZM30.2676 14.5781C29.5537 12.9004 28.5635 11.4297 27.2988 10.1641L25.8145 11.6504C27 12.8359 27.8779 14.1484 28.4482 15.5898C28.9746 16.9238 29.2373 18.3672 29.2373 19.918C29.2373 23.1484 28.0967 25.9043 25.8145 28.1855L27.2988 29.6699C28.5635 28.4062 29.5537 26.9277 30.2676 25.2363C30.5986 24.4531 30.8535 23.6504 31.0312 22.8281C31.2373 21.877 31.3398 20.9004 31.3398 19.8965C31.3398 19.1406 31.2812 18.4023 31.1641 17.6777C30.9922 16.6094 30.6934 15.5762 30.2676 14.5781Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="voldown"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.000976562 11.6289H9.48549L23.7535 0V40L9.48549 28.3711H0.000976562V11.6289V11.6289ZM29.1143 9.73192C31.9185 12.536 33.3481 15.945 33.403 19.9587C33.403 23.8074 31.9735 27.1064 29.1143 29.8556L26.2277 26.8866C28.2071 24.9072 29.1968 22.5704 29.1968 19.8763C29.1968 17.1271 28.2071 14.7354 26.2277 12.701L29.1143 9.73192V9.73192Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM13.7422 15.8145H9V24.1855H13.7422L20.876 30V10L13.7422 15.8145ZM25.7012 19.9785C25.6738 17.9727 24.959 16.2676 23.5566 14.8652L22.1133 16.3496C23.1035 17.3672 23.5977 18.5645 23.5977 19.9375C23.5977 21.2852 23.1035 22.4531 22.1133 23.4434L23.5566 24.9277C24.9863 23.5527 25.7012 21.9043 25.7012 19.9785Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="go-fullscreen"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.0839844 0V13.7939L4.88868 8.94773L15.9409 20L4.86915 31.0718L0.0839844 26.3281V40H13.8779L9.03172 35.1953L20.084 24.1431L31.1558 35.2148L26.4121 40H40.084V26.2061L35.2793 31.0523L24.2271 20L35.2988 8.92823L40.084 13.6719V0H26.2901L31.1363 4.8047L20.084 15.8569L9.01222 4.78517L13.7559 0H0.0839844Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM10 16.8965V10H16.8359L14.4639 12.3926L20 17.9277L25.5264 12.4023L23.1035 10H30V16.8359L27.6074 14.4648L22.0713 20L27.5977 25.5254L30 23.1035V30H23.1641L25.5361 27.6074L20 22.0723L14.4736 27.5977L16.8965 30H10V23.1641L12.3926 25.5352L17.9287 20L12.4023 14.4746L10 16.8965Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls button[data-state="cancel-fullscreen"] {
-	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19V5.89577L14.4355 10.4997L3.93591 1.72572e-06L7.83322e-07 3.93591L10.5182 14.4541L6.01173 19L19 19Z" fill="blue"/><path d="M21 21L21 34.1042L25.5645 29.5003L36.0641 40L40 36.0641L29.4818 25.5459L33.9883 21L21 21Z" fill="blue"/><path d="M21 19L34.1042 19L29.5003 14.4355L40 3.93591L36.0641 0L25.5459 10.5182L21 6.01173L21 19Z" fill="blue"/><path d="M19 21L5.89576 21L10.4997 25.5645L0 36.0641L3.93591 40L14.4541 29.4818L19 33.9883L19 21Z" fill="blue"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0459 40 40 31.0449 40 20C40 8.95508 31.0459 0 20 0C8.9541 0 0 8.95508 0 20C0 31.0449 8.9541 40 20 40ZM19.5 12.9473V19.5H13.0059L15.2588 17.2266L10 11.9688L11.9678 10L17.2178 15.25L19.5 12.9473ZM20.5 27.0527V20.5H26.9941L24.7412 22.7734L30 28.0312L28.0322 30L22.7822 24.75L20.5 27.0527ZM20.5 19.5H27.0518L24.75 17.2168L30 11.9688L28.0322 10L22.7734 15.2598L20.5 13.0059V19.5ZM12.9482 20.5H19.5V26.9941L17.2266 24.7402L11.9678 30L10 28.0312L15.25 22.7832L12.9482 20.5Z" fill="white"/></svg>');
 	background-size: 75%;
 	background-position: center;
 }
 .controls progress {
-	display:block;
-	width:100%;
-	height:10px;
-	margin-top:2px;
-	margin-top:0.125rem;
-	border:none;
-	overflow:hidden;
-	color:#0095dd; /* Internet Explorer uses this value as the progress bar's value colour */
+	color:#ffffff; /* Internet Explorer uses this value as the progress bar's value colour */
+    display: block;
+    width: 99.6%;
+    height: 98%;
+	border-radius: 20px;
+    border: none;
+    overflow: hidden;
 }
 .controls progress[data-state="fake"] {
-	background:#e6e6e6;
+	background:#ffffff;
 	height:65%;
 }
 .controls progress span {
 	width:0%;
-	height:100%;
+	height:80%;
 	display:inline-block;
-	background-color:#2a84cd;	
+	background-color:#000000;	
 }
 
 .controls progress::-moz-progress-bar {
-	background-color:#0095dd;
+	background-color:#000000;
 }
 /* Chrome requires its own rule for this, otherwise it ignores it */
 .controls progress::-webkit-progress-value {
-	background-color:#0095dd;
+	background-color:#000000;
 }
-
+/* play/pause button is full width */
+#playpause {
+	position: absolute;
+    width: 100%;
+    top: -100vh;
+    opacity: 0;
+    background-color: #00dd7a;
+}
+/* Close button */
+#close {
+	color: white;
+	width: auto;
+	height: auto;
+	font-size: 16px;
+}
 /* fullscreen */
 html:-ms-fullscreen {
 	width:100%;
@@ -191,14 +244,14 @@ figure[data-fullscreen=true] .controls .progress {
 }
 
 /* Media Queries */
-@media screen and (max-width:1024px) {
+/*@media screen and (max-width:1024px) {
 	figure {
 		padding-left:0;
 		padding-right:0;
 		height:auto;
 	}
 	.controls {
-		/* we want the buttons to be proportionally bigger, so give their parent a set height */
+		/* we want the buttons to be proportionally bigger, so give their parent a set height 
 		height:30px;
 		height:1.876rem;
 	}
@@ -216,7 +269,7 @@ figure[data-fullscreen=true] .controls .progress {
 		margin-top:2.5rem;
 	}
 	.controls .progress {
-		/*display:table-caption;*/ /* this trick doesn't work as elements are floated and the layout doesn't work */
+		/*display:table-caption;*/ /* this trick doesn't work as elements are floated and the layout doesn't work 
 		position:absolute;
 		top:0;
 		width:100%;
@@ -234,4 +287,4 @@ figure[data-fullscreen=true] .controls .progress {
 		text-align:center;
 		margin-top:0.5rem;
 	}
-}
+}*/
