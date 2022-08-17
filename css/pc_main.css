@@ -1,0 +1,29 @@
+html{
+    background:rgb(0, 0, 0);
+    color:#2f1dff;
+    width:100%;
+    height:100%;
+}
+html#works .image{
+    display:block;
+    position:relative;
+    left:0;
+    top:0;
+    z-index:0
+}
+html div {
+    min-width:400px;
+    max-width:400px;
+    min-height:400px;
+    max-height:400px;
+    background-color: #301dff39;
+    overflow: ;
+}
+.page {
+    min-width:auto;
+    max-width:auto;
+    min-height:auto;
+    max-height:auto;
+    height: 100%;
+    width: 100%;
+}
